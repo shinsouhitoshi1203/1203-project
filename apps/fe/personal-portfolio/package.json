@@ -1,0 +1,12 @@
+{
+    "name": "@1203-project/personal-portfolio",
+    "version": "0.0.1",
+    "private": true,
+    "nx": {
+        "name": "personal-portfolio",
+        "tags": [
+            "[\"scope:fe\"",
+            "\"type:app\"]"
+        ]
+    }
+}
