@@ -1,10 +1,12 @@
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
 const NodemonPlugin = require('nodemon-webpack-plugin');
-const { join } = require('path');
+const { join, resolve } = require('path');
 
 module.exports = {
+    entry: './src/main.js',
+    watch: true,
     output: {
-        path: join(__dirname, 'dist'),
+        path: resolve(join(__dirname, 'dist')),
         filename: 'main.js',
     },
     resolve: {

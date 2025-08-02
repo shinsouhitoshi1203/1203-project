@@ -8,20 +8,20 @@ import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import * as path from 'path';
-import router from './routers';
-
 import https from 'https';
-import { CORS_CONFIG, HTTPS_CONFIG } from '@/configs/server';
+import http from 'http';
 import cors from 'cors';
+
+import router from '@/routers';
 import connectDB from '@/middlewares/db/connectDB';
+import { CORS_CONFIG, HTTPS_CONFIG, PORT, devMode } from '@/configs/server';
+import getURL from '@/configs/domain';
 
 const app = express();
 app.use(helmet({}));
 app.use(morgan('dev'));
 
 app.use(cors(CORS_CONFIG));
-// HTTPS configs - Do not use http
-const httpsServer = https.createServer(HTTPS_CONFIG, app);
 
 // Middleware to parse JSON and bodies
 app.use(
@@ -39,9 +39,6 @@ app.use(
 // Serve static files from the dist directory
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Port configuration
-const port = process.env.PORT || 443;
-
 // Connect to the database
 app.use(connectDB);
 
@@ -50,11 +47,11 @@ router(app);
 
 // Handling errors
 app.use((req, res, next) => {
-    res.status(404).send("Sorry can't find that!");
+    res.status(404).send("Sorry can't find");
 });
 
 app.use((err, req, res, next) => {
-    if (process.env.NODE_ENV === 'production') {
+    if (!devMode()) {
         // In production, do not expose error stack
         return res.status(500).send('Internal Server Error');
     }
@@ -62,9 +59,23 @@ app.use((err, req, res, next) => {
     return res.status(500).send(err);
 });
 
-httpsServer.listen(port, () => {
-    console.log(
-        `Server is connected at : https://www.api.portfolio.shinsouhitoshi.local:${port}`
-    );
-});
-httpsServer.on('error', console.error);
+// Get domain name
+const URL = getURL();
+
+const startServer = () => {
+    if (HTTPS_CONFIG) {
+        const httpsServer = https.createServer(HTTPS_CONFIG, app);
+        httpsServer.listen(PORT, () => {
+            console.log(`Server is connected at ${URL}`);
+        });
+        httpsServer.on('error', console.error);
+    } else {
+        const httpServer = http.createServer(app);
+        httpServer.listen(PORT, () => {
+            console.log(`Server is connected at ${URL}`);
+        });
+        httpServer.on('error', console.error);
+    }
+};
+
+startServer();
