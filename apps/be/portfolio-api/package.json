@@ -1,0 +1,62 @@
+{
+    "name": "@1203-project/portfolio-api",
+    "version": "0.0.1",
+    "private": true,
+    "nx": {
+        "name": "portfolio-api",
+        "targets": {
+            "build": {
+                "executor": "@nx/webpack:webpack",
+                "outputs": [
+                    "{options.outputPath}"
+                ],
+                "defaultConfiguration": "development",
+                "options": {
+                    "watch": true,
+                    "target": "node",
+                    "compiler": "tsc",
+                    "outputPath": "{projectRoot}/dist",
+                    "main": "{projectRoot}/src/main.js",
+                    "tsConfig": "{projectRoot}/tsconfig.app.json",
+                    "webpackConfig": "{projectRoot}/webpack.config.js"
+                },
+                "configurations": {
+                    "development": {
+                        "optimization": false,
+                        "extractLicenses": false,
+                        "sourceMap": true
+                    },
+                    "production": {
+                        "optimization": true,
+                        "extractLicenses": true,
+                        "sourceMap": false
+                    }
+                }
+            },
+            "serve": {
+                "continuous": true,
+                "executor": "@nx/js:node",
+                "defaultConfiguration": "development",
+                "dependsOn": [
+                    "build"
+                ],
+                "options": {
+                    "buildTarget": "portfolio-api:build",
+                    "runBuildTargetDependencies": false
+                },
+                "configurations": {
+                    "development": {
+                        "buildTarget": "portfolio-api:build:development"
+                    },
+                    "production": {
+                        "buildTarget": "portfolio-api:build:production"
+                    }
+                }
+            }
+        },
+        "tags": {
+            "scope": "be",
+            "type": "api"
+        }
+    }
+}

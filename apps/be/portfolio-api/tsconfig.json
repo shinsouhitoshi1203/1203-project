@@ -1,0 +1,14 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "files": ["./main.ts"],
+    "include": ["./src/"],
+    "references": [
+        {
+            "path": "./tsconfig.app.json"
+        }
+    ],
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "allowJs": true
+    }
+}

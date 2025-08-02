@@ -1,0 +1,32 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "target": "ES2020",
+        "outDir": "dist",
+        "types": ["node", "express"],
+        "module": "nodenext",
+        "rootDir": "src",
+        "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
+    },
+    "files": ["src/main.ts"],
+    "include": ["src/**/*.ts", "src/**/*.js"],
+    "exclude": [
+        "out-tsc",
+        "dist",
+        "src/**/*.spec.js",
+        "src/**/*.test.js",
+        "eslint.config.js",
+        "eslint.config.cjs",
+        "eslint.config.mjs"
+    ]
+}
+// {
+//     "extends": "./tsconfig.json",
+//     "compilerOptions": {
+//         "outDir": "../../dist/out-tsc",
+//         "module": "nodenext",
+//         "types": ["node", "express"]
+//     },
+//     "include": ["src/**/*.ts", "src/**/*.js"],
+//     "exclude": ["src/**/*.spec.js", "src/**/*.test.js"]
+// }
