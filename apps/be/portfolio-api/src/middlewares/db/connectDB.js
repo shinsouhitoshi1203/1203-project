@@ -1,6 +1,7 @@
 import { connect } from 'mongoose';
 
 import config from '@/middlewares/db/config';
+import { devMode } from '@/configs/server';
 
 // connectDB: connects to the database before starting the server
 const defaultDatabaseUrl = 'mongodb://localhost:27017/shinsouhitoshi1203'; // Default database URL
@@ -19,7 +20,7 @@ async function connectDB(req, res, next) {
         return next();
     } catch (error) {
         // Handle connection errors: if its in production, send a generic error message!
-        if (process.env.NODE_ENV === 'production') {
+        if (!devMode) {
             return res.status(500).send('Database connection not established');
         } else {
             return next(error);

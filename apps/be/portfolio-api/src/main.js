@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    if (!devMode()) {
+    if (!devMode) {
         // In production, do not expose error stack
         return res.status(500).send('Internal Server Error');
     }

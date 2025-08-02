@@ -19,9 +19,9 @@ import { join } from 'path';
     - Do not use HTTP, only HTTPS. The hosting server should handle HTTP to HTTPS redirection.
 
 */
-const devMode = () => process.env.NODE_ENV === 'development';
+const devMode = process.env.NODE_ENV === 'development';
 const getCertDir = () => {
-    if (devMode()) {
+    if (devMode) {
         return process.env.CERT_DIR || 'S:/webserver/cert/shinsouhitoshi1203';
     } else {
         return process.env.CERT_DIR || '';
@@ -44,7 +44,7 @@ const getHTTPSConfig = () => {
         return null;
     };
 
-    if (devMode()) {
+    if (devMode) {
         const keyPath = join(CERT_DIR, 'shinsouhitoshi.local.key');
         const certPath = join(CERT_DIR, 'shinsouhitoshi.local.crt');
         return configRaw(keyPath, certPath);
@@ -65,7 +65,7 @@ const getCorsConfig = () => {
     const configRaw = {
         credentials: true,
     };
-    if (devMode()) {
+    if (devMode) {
         configRaw.origin = [/.*\.shinsouhitoshi\.local$/];
     } else {
         configRaw.origin = '*';

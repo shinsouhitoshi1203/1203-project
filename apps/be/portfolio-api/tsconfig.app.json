@@ -20,13 +20,3 @@
         "eslint.config.mjs"
     ]
 }
-// {
-//     "extends": "./tsconfig.json",
-//     "compilerOptions": {
-//         "outDir": "../../dist/out-tsc",
-//         "module": "nodenext",
-//         "types": ["node", "express"]
-//     },
-//     "include": ["src/**/*.ts", "src/**/*.js"],
-//     "exclude": ["src/**/*.spec.js", "src/**/*.test.js"]
-// }

@@ -8,7 +8,7 @@ const SUB_NAME = 'api.portfolio';
 
 // Get TLD domain, i.e someone.com
 const getTLDDomain = () => {
-    if (devMode()) {
+    if (devMode) {
         return process.env.DOMAIN || 'shinsouhitoshi.local';
     } else {
         return process.env.DOMAIN || 'localhost';
@@ -17,7 +17,7 @@ const getTLDDomain = () => {
 
 // Get subdomain, i.e: api.portfolio.someone.com
 const getDomain = () => {
-    if (devMode()) {
+    if (devMode) {
         // Use assigned dev domain
         return SUB_NAME + '.' + getTLDDomain();
     } else {
@@ -27,7 +27,7 @@ const getDomain = () => {
     }
 };
 const getURL = () => {
-    if (devMode()) {
+    if (devMode) {
         return `https://${getDomain()}:${PORT}`;
     } else {
         if (HTTPS_CONFIG) {

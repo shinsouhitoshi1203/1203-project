@@ -1,3 +1,5 @@
+import { devMode } from '@/configs/server';
+
 const commonSettings = {
     serverSelectionTimeoutMS: 5000,
 };
@@ -15,6 +17,17 @@ const dev = {
     dbName: process.env.DATABASE_NAME,
 };
 
-const config = process.env.NODE_ENV === 'production' ? prod : dev;
+const getConfig = () => {
+    if (devMode) {
+        return dev;
+    } else {
+        return prod;
+    }
+};
+
+const config = getConfig();
+
+// Merge with common settings for both environments
 Object.assign(config, commonSettings);
+
 export default config;
