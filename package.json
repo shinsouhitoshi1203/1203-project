@@ -2,7 +2,10 @@
     "name": "@1203-project/source",
     "version": "0.0.0",
     "license": "MIT",
-    "scripts": {},
+    "scripts": {
+        "lint": "nx run-many --target=lint --all",
+        "beautify": "prettier . --write"
+    },
     "private": true,
     "devDependencies": {
         "@eslint/js": "^9.8.0",

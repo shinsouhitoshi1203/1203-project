@@ -19,7 +19,7 @@ const ItemSchema = new Schema(
             type: String,
             required: true,
             enum: ITEM_TYPE_ENUM,
-            validate: (x) => {
+            validate: x => {
                 // Validate that the type is either 'favourite' or 'dislike'
                 return ITEM_TYPE_ENUM.includes(x);
             },

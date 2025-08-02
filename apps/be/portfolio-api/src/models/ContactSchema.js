@@ -21,7 +21,7 @@ const ContactSchema = new Schema(
             type: String,
             required: true,
             enum: ['personal', 'professional'],
-            validate: (x) => {
+            validate: x => {
                 // Validate that the type is either 'personal' or 'professional'
                 return ['personal', 'professional'].includes(x);
             },
